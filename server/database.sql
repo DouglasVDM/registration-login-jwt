@@ -13,4 +13,5 @@ CREATE TABLE users(
 -- insert sample users
 INSERT INTO users (user_name, user_email, user_password) VALUES ('douglas', 'douglas@gmail.com', 'doug1234');
 
+-- display all users
 SELECT * FROM users;
