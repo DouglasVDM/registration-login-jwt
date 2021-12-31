@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import './App.css';
 
 import {
@@ -20,6 +20,27 @@ function App() {
   const setAuth = (boolean) => {
     setIsAuthenticated(boolean);
   };
+
+  // VALIDATE JWT TOKEN WHEN REFRESH
+  const isAuth = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/auth/is-verify', {
+        method: 'GET',
+        headers: { token: localStorage.token }
+      });
+
+      const parseResponse = await response.json();
+      console.log('parseResponse=>app.js', parseResponse);
+
+      parseResponse === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  useEffect(() => {
+    isAuth();
+  }, []);
 
   return (
     <Fragment>
