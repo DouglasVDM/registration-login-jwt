@@ -15,8 +15,8 @@ router.post('/register', validInfo, async (req, res) => {
     const user = await pool.query('SELECT * FROM users WHERE user_email = $1', [email]);
 
     if (user.rows.length !== 0) {
-      return res.status(401).send('User already exist')
-    };
+      return res.status(401).json('User already exist')
+    }
 
     // 3. bcrypt THE USER PASSWORD
     const saltRound = 10;
@@ -47,7 +47,7 @@ router.post('/login', validInfo, async (req, res) => {
     const user = await pool.query('SELECT * FROM users WHERE user_email = $1', [email]);
 
     if (user.rows.length === 0) {
-      return res.status(401).send('Password or Email is incorrect');
+      return res.status(401).json('Password or Email is incorrect');
     }
 
     // 3. CHECK IF INCOMMING PASSWORD IS THE SAME AS THE DATABASE PASSWORD
