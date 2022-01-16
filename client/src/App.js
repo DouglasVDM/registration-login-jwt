@@ -37,8 +37,6 @@ function App() {
       });
 
       const parseResponse = await response.json();
-      console.log('parseResponse=>app.js', parseResponse);
-
       parseResponse === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
     } catch (err) {
       console.error(err.message);

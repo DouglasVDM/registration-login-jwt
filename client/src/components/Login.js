@@ -27,7 +27,6 @@ const Login = ({ setAuth }) => {
       });
 
       const parseResponse = await response.json();
-      console.log('parseResponse=>', parseResponse)
 
       if (parseResponse.token) {
         localStorage.setItem('token', parseResponse.token);
