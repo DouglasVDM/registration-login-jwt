@@ -18,6 +18,30 @@ router.get('/', authorization, async (req, res) => {
 });
 
 
+// GET ALL BOOKINGS FOR SPECIFIC COURT
+router.get('/booking/:id', async (req, res) => {
+  try {
+    // 1. DESTRUCTURE req.body
+    const {id} = req.params;
+
+    // 2. CHECK IF BOOKING EXIST (IF BOOKING EXIST THEN THROW ERROR)
+    const booking = await pool.query(`SELECT booking_date, time_in, time_out FROM bookings AS b INNER JOIN courts AS c ON b.court_id = c.court_id WHERE b.court_id = ${id}`);
+
+    res.json(booking.rows);
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Add BookingID Error');
+  }
+});
+
+// GET ALL BOOKINGS FOR SPECIFIC COURT
+router.get('/booking', async (req, res) => {
+  try {
+    // 1. DESTRUCTURE req.body
+    const {court_id} = req.params;
+
+   
 // ADD NEW BOOKING
 router.post('/booking', async (req, res) => {
   try {
@@ -30,7 +54,7 @@ router.post('/booking', async (req, res) => {
     if (booking.rows.length !== 0) {
       return res.json({ status: 'fail', message: 'Booking already exist' })
     };
-    
+
     // 3 CHECK IF USER HAS BOOKED A COURT FOR THE WEEK
     const user = await pool.query('SELECT * FROM bookings WHERE (user_id) = ($1)', [user_id]);
 
@@ -49,6 +73,17 @@ router.post('/booking', async (req, res) => {
   }
 });
 
+// ALL COURTS
+router.get('/courts', async (req, res) => {
+  try {
+    const court = await pool.query('SELECT court_id, court_name FROM courts AS c ORDER BY court_name ASC');
+
+    res.json(court.rows);
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).json('Server error - Dashboard/court')
+  }
+});
 
 // ALL BOOKINGS FOR COURT 1 BY DATE DESCENDING
 router.get('/date', async (req, res) => {
