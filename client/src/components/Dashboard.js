@@ -4,11 +4,12 @@ import { toast } from 'react-toastify';
 // COMPONENTS
 import Courts from './Courts';
 import Court from './Court';
+import Booking from './Booking';
 
 const Dashboard = ({ setAuth }) => {
   const [name, setName] = useState('');
   const [courts, setCourts] = useState([]);
-  const [courtId, setCourtId] = useState('')
+  const [courtId, setCourtId] = useState([])
 
   const getName = async () => {
     try {
@@ -18,7 +19,8 @@ const Dashboard = ({ setAuth }) => {
       });
 
       const parseResponse = await response.json();
-      setName(parseResponse.user_name)
+      console.log('parseResponse_dashboard', parseResponse)
+      setName(parseResponse.user_name);
 
     } catch (err) {
       console.error(err)
@@ -45,6 +47,7 @@ const Dashboard = ({ setAuth }) => {
       });
 
       const parseResponse = await response.json();
+      console.log('parseResponse_court', parseResponse);
       setCourts(parseResponse);
 
     } catch (err) {
@@ -64,6 +67,8 @@ const Dashboard = ({ setAuth }) => {
   return (
     <Fragment>
       <h1>Welcome back {name}!</h1>
+      <br />
+      <Booking courts={courts} courtId={courtId} getCourtId={getCourtId} />
       <br />
       <Courts courts={courts} getCourtId={getCourtId} />
       <br />
