@@ -18,25 +18,11 @@ router.get('/', authorization, async (req, res) => {
 });
 
 
-// GET ALL USERS
-router.get('/users', async (req, res) => {
-  try {
-
-    const users = await pool.query(`SELECT * FROM users AS u`);
-
-    res.json(users.rows);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).json('Server Error - All users');
-  }
-});
-
-
 // GET ALL BOOKINGS
 router.get('/bookings', async (req, res) => {
   try {
 
-    const bookings = await pool.query(`SELECT * FROM bookings AS b`);
+    const bookings = await pool.query(`SELECT * FROM bookings AS b ORDER BY booking_id ASC`);
 
     res.json(bookings.rows);
 
@@ -72,7 +58,7 @@ router.get('/bookings/:userId', async (req, res) => {
     const { userId } = req.params;
 
     // 2. CHECK IF BOOKING EXIST (IF BOOKING EXIST THEN THROW ERROR)
-    const booking = await pool.query(`SELECT booking_date, time_in, time_out FROM bookings AS b INNER JOIN users AS u ON b.user_id = u.user_id WHERE b.user_id = ${userId}`);
+    const booking = await pool.query(`SELECT booking_id, booking_date, time_in, time_out FROM bookings AS b INNER JOIN users AS u ON b.user_id = u.user_id WHERE b.user_id = ${userId} ORDER BY booking_date ASC`);
 
     res.json(booking.rows);
 
@@ -110,7 +96,7 @@ router.get('/time-in', async (req, res) => {
 
 
 // ADD NEW BOOKING
-router.post('/booking', async (req, res) => {
+router.post('/bookings', async (req, res) => {
   try {
     // 1. DESTRUCTURE req.body
     const { user_id, court_id, booking_date, time_in, time_out } = req.body;
@@ -152,5 +138,6 @@ router.get('/courts', async (req, res) => {
     res.status(500).json('Server error - Dashboard/court')
   }
 });
+
 
 module.exports = router;
