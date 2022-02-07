@@ -2,15 +2,14 @@ import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const Booking = ({ courtId, courts, getCourtId }) => {
+const Booking = ({userId, courtId, courts, getCourtId }) => {
   const [inputs, setInputs] = useState({
-    court_id: { courtId },
     booking_date: '',
     time_in: '',
     time_out: ''
   });
-
-  const { court_id, booking_date, time_in, time_out } = inputs;
+  const user_id = userId;
+  const { booking_date, time_in, time_out } = inputs;
 
   const onChange = (event) => {
     setInputs({ ...inputs, [event.target.name]: event.target.value });
@@ -20,8 +19,8 @@ const Booking = ({ courtId, courts, getCourtId }) => {
     event.preventDefault()
 
     try {
-      const body = { court_id, booking_date, time_in, time_out };
-      const response = await fetch('http://localhost:5000/dashboard/booking', {
+      const body = {user_id, booking_date, time_in, time_out };
+      const response = await fetch('http://localhost:5000/dashboard/bookings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
@@ -33,6 +32,7 @@ const Booking = ({ courtId, courts, getCourtId }) => {
     } catch (err) {
       console.error(err.message);
     }
+    setInputs({ ...inputs, [event.target.name]: event.target.value });
   };
 
   return (
