@@ -20,7 +20,7 @@ const Booking = ({userId, courtId, courts, getCourtId }) => {
 
     try {
       const body = {user_id, booking_date, time_in, time_out };
-      const response = await fetch('http://localhost:5000/dashboard/bookings', {
+      const response = await fetch('http://localhost:5000/booking', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)

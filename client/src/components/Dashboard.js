@@ -1,11 +1,13 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
+
 // COMPONENTS
 import Courts from './Courts';
 import Court from './Court';
 import Booking from './Booking';
 import Users from './Users';
+
 
 const Dashboard = ({ setAuth }) => {
   const [name, setName] = useState('');
@@ -13,6 +15,7 @@ const Dashboard = ({ setAuth }) => {
   const [userEmail, setUserEmail] = useState([]);
   const [courts, setCourts] = useState([]);
   const [courtId, setCourtId] = useState([]);
+
 
   const getName = async () => {
     try {
