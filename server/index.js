@@ -23,6 +23,7 @@ app.get('/users', db.getUsers);
 app.get('/user', db.getUserByEmail);
 
 // BOOKINGS
+app.post('/booking', db.createBooking);
 app.put('/booking/:bookingId', db.updateBooking);
 
 app.listen(PORT, () => {
