@@ -37,8 +37,6 @@ function App() {
       });
 
       const parseResponse = await response.json();
-      console.log('parseResponse=>app.js', parseResponse);
-
       parseResponse === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
     } catch (err) {
       console.error(err.message);
@@ -54,6 +52,17 @@ function App() {
       <Router>
         <div className="container">
           <Switch>
+            <Route
+              exact
+              path='/'
+              render={props =>
+                !isAuthenticated ? (
+                  <Login {...props} setAuth={setAuth} />
+                ) : (
+                  <Redirect to='/dashboard' />
+                )
+              }
+            />
             <Route
               exact
               path='/login'
