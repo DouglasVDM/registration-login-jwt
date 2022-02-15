@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
+  import { toast } from 'react-toastify';
 
 const Login = ({ setAuth }) => {
 
@@ -27,7 +27,6 @@ const Login = ({ setAuth }) => {
       });
 
       const parseResponse = await response.json();
-      console.log('parseResponse=>', parseResponse)
 
       if (parseResponse.token) {
         localStorage.setItem('token', parseResponse.token);
