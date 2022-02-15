@@ -1,10 +1,10 @@
 
 // Student queries
-const checkStudentEmail = "SELECT * FROM students WHERE student_email = $1";
+const checkUserEmail = "SELECT * FROM users WHERE user_email = $1";
 
-const SignUpStudent = "INSERT INTO students (student_name, student_email, student_password) VALUES ($1, $2, $3) RETURNING *";
+const SignUpUser = "INSERT INTO users (user_name, user_email, user_password) VALUES ($1, $2, $3) RETURNING *";
 
-const getStudentById = "SELECT * FROM students WHERE student_id = $1";
+const getUserById = "SELECT * FROM users WHERE user_id = $1";
 
 // Mentor queries
 // const checkMentorEmail = "SELECT * FROM mentors WHERE mentor_email = $1";
@@ -23,9 +23,9 @@ const getAdminById = "SELECT admin_name FROM admin WHERE admin_id = $1";
 
 
 module.exports = {
-  checkStudentEmail,
-  SignUpStudent,
-  getStudentById,
+  checkUserEmail,
+  SignUpUser,
+  getUserById,
   // checkMentorEmail,
   // SignUpMentor,
   // getMentorById,
