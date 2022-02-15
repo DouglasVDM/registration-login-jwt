@@ -1,5 +1,5 @@
 import pool from "../../db";
-import queries from "../../queries";
+import queries from "../queries";
 import bcrypt from "bcrypt";
 import jwtGenerator from "../../utils/jwtGenerator";
 
