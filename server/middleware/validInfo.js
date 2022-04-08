@@ -10,7 +10,12 @@ module.exports = function (req, res, next) {
 
 
   function validEmail(userEmail) {
-    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(userEmail);
+    // CHECKING FOR VALID EMAIL ADRESS
+    let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+    if (regex.test(userEmail)) {
+      return true;
+    }
   }
 
   if (req.path === '/user/register') {
